@@ -11,13 +11,13 @@
 </div>
 
 <div align="center">
-    <img src="https://github.com/erfan2255/debian-on-android/blob/main/Images/Openlogo-debianV2.svg" alt="Debian Logo" width="100"/>
+    <img src="https://github.com/abhiraj-bibhar/debian-on-android/blob/main/Images/Openlogo-debianV2.svg" alt="Debian Logo" width="100"/>
     <h1>Debian 13 on Android</h1>
     <h3>Turn your Android device into a portable Linux PC</h3>
     <p>A simple, one-line command to install a full Debian (XFCE) desktop environment on any Android device using Termux</p>
     <p>
-        <img src="https://img.shields.io/github/license/erfan2255/Debian-On-Android?style=square" alt="License">
-        <img src="https://img.shields.io/github/last-commit/erfan2255/Debian-On-Android?style=square" alt="Last Commit">
+        <img src="https://img.shields.io/github/license/abhiraj-bibhar/Debian-On-Android?style=square" alt="License">
+        <img src="https://img.shields.io/github/last-commit/abhiraj-bibhar/Debian-On-Android?style=square" alt="Last Commit">
         <a href="https://opensource.org"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" alt="Open Source"></a>
     </p>
 </div>
@@ -44,7 +44,7 @@
 <ul>
     <li>An Android device (phone or tablet).</li>
     <li>The <a href="https://f-droid.org/en/packages/com.termux/">Termux</a> app installed.</li>
-    <li>A VNC Viewer app (e.g., <a href="https://play.google.com/store/apps/details?id=com.realvnc.viewer.android">RealVNC</a>, <a href="https://play.google.com/store/apps/details?id=com.gaurav.avnc">AVNC</a>) installed on your Android device.</li>
+    <li>A VNC Viewer app (e.g., <a href="https://play.google.com/store/apps/details?id=com.gaurav.avnc">AVNC</a>) installed on your Android device.</li>
     <li>Approximately 4-5 GB of free storage space.</li>
 </ul>
 
@@ -54,7 +54,7 @@
 
 <h4>1. Run the Installer</h4>
 <p>Paste the one-line command below into your Termux terminal and press Enter.</p>
-<pre><code>bash -c "$(curl -fsSL https://raw.githubusercontent.com/erfan2255/debian-on-android/main/setup.sh)"</code></pre>
+<pre><code>bash -c "$(curl -fsSL https://raw.githubusercontent.com/abhiraj-bibhar/debian-on-android/main/setup.sh)"</code></pre>
 
 <h4>2. Follow the Prompts</h4>
 <p>The script will guide you through creating a username and password for your new Debian system.</p>
@@ -122,11 +122,11 @@
 
 <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 2rem; margin-top: 1rem;">
     <div style="text-align: center;">
-        <img src="https://github.com/erfan2255/debian-on-android/blob/main/Images/IMG_20250823_181327.png" alt="Debian info" style="width: 400px; max-width: 90%; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);"/>
+        <img src="https://github.com/abhiraj-bibhar/debian-on-android/blob/main/Images/IMG_20250823_181327.png" alt="Debian info" style="width: 400px; max-width: 90%; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);"/>
         <p><strong>Debian info</strong></p>
     </div>
     <div style="text-align: center;">
-        <img src="https://github.com/erfan2255/debian-on-android/blob/main/Images/IMG_20250823_181349.png" alt="Libre Office" style="width: 400px; max-width: 90%; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);"/>
+        <img src="https://github.com/abhiraj-bibhar/debian-on-android/blob/main/Images/IMG_20250823_181349.png" alt="Libre Office" style="width: 400px; max-width: 90%; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);"/>
         <p><strong>Libre Office</strong></p>
     </div>
 </div>
@@ -137,7 +137,7 @@
 <p>If you find this project useful, please give it a ⭐ to show your support!</p>
 
 <h3>► License</h3>
-<p>This project is licensed under the MIT License. See the <a href="https://github.com/erfan2255/Debian-On-Android/blob/main/LICENSE">LICENSE</a> file for details.</p>
+<p>This project is licensed under the MIT License. See the <a href="https://github.com/abhiraj-bibhar/Debian-On-Android/blob/main/LICENSE">LICENSE</a> file for details.</p>
 
 <hr>
 <div align="center">

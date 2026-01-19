@@ -52,7 +52,6 @@ pkg install proot-distro -y
 echo -e "\n${C_BLUE}>>> [2/6] Installing Debian...${C_RESET}"
 proot-distro install debian
 
-
 # --- [3/6] Debian Configuration (as root) ---
 echo -e "\n${C_BLUE}>>> [3/6] Configuring Debian system as root...${C_RESET}"
 
@@ -66,17 +65,22 @@ run_in_debian "apt-get update && apt-get upgrade -y"
 echo "--> Installing required packages: sudo, nano, adduser..."
 run_in_debian "apt-get install -y sudo nano adduser"
 
-echo "--> Setting timezone to Asia/Tehran..."
-run_in_debian "ln -fs /usr/share/zoneinfo/Asia/Tehran /etc/localtime"
+# --- Timezone Setup (Asia/Kolkata) with Dialogue ---
+echo -e "${C_YELLOW}>>> Configuring system timezone...${C_RESET}"
+echo -e "${C_CYAN}Your system timezone will be set to: Asia/Kolkata (India Standard Time)${C_RESET}"
+sleep 2
+
 run_in_debian "apt-get install -y tzdata"
+run_in_debian "ln -fs /usr/share/zoneinfo/Asia/Kolkata /etc/localtime"
 run_in_debian "dpkg-reconfigure --frontend noninteractive tzdata"
+
+echo -e "${C_GREEN}Timezone successfully set to Asia/Kolkata.${C_RESET}"
 
 echo "--> Creating new user '$NEW_USER'..."
 echo -e "${NEW_PASS}\n${NEW_PASS}\n${NEW_USER}\n\n\n\n\ny" | run_in_debian "adduser $NEW_USER"
 
 echo "--> Granting '$NEW_USER' user sudo privileges..."
 run_in_debian "usermod $NEW_USER -g sudo"
-
 
 # --- [4/6] Desktop & Apps Setup (as new user) ---
 echo -e "\n${C_BLUE}>>> [4/6] Setting up Desktop & Applications as '$NEW_USER'...${C_RESET}"
@@ -97,14 +101,13 @@ echo "--> Installing LibreOffice Suite..."
 INSTALL_OFFICE="apt-get install -y --no-install-recommends libreoffice libreoffice-gtk3 libreoffice-gnome"
 echo "${NEW_PASS}" | run_as_user "sudo -S $INSTALL_OFFICE"
 
-
 # --- [5/6] Create VNC Resolution Selector Script ---
 echo -e "\n${C_BLUE}>>> [5/6] Creating VNC resolution selector script inside Debian...${C_RESET}"
-# This script will be called by the 'startvnc' alias.
+
 VNC_SCRIPT_PATH="/home/$NEW_USER/start_vnc_session.sh"
 run_as_user "touch $VNC_SCRIPT_PATH"
 run_as_user "chmod +x $VNC_SCRIPT_PATH"
-# Use 'cat << EOF | command' to write a multi-line script into the user's home directory.
+
 cat << 'EOF' | run_as_user "cat > $VNC_SCRIPT_PATH"
 #!/bin/bash
 C_CYAN='\033[1;36m'
@@ -118,7 +121,7 @@ echo "3) 1600x900"
 echo "4) Custom"
 echo ""
 read -p "Select an option [2]: " choice
-choice=${choice:-2} # Default to 2 if user just presses Enter
+choice=${choice:-2}
 
 case $choice in
     1) GEOMETRY="1280x720";;
@@ -132,24 +135,23 @@ echo -e "${C_YELLOW}Starting VNC server with resolution: $GEOMETRY${C_RESET}"
 vncserver :1 -geometry $GEOMETRY -depth 24
 EOF
 
-
 # --- [6/6] Create Aliases in Debian ---
 echo -e "\n${C_BLUE}>>> [6/6] Creating convenient aliases inside Debian for '$NEW_USER'...${C_RESET}"
+
 DEBIAN_BASHRC="/home/$NEW_USER/.bashrc"
 run_as_user "echo '' >> $DEBIAN_BASHRC"
 run_as_user "echo '# --- VNC Aliases ---' >> $DEBIAN_BASHRC"
-# The startvnc alias now runs the selector script we just created.
 run_as_user "echo \"alias startvnc='~/start_vnc_session.sh'\" >> $DEBIAN_BASHRC"
 run_as_user "echo \"alias stopvnc='vncserver -kill :1'\" >> $DEBIAN_BASHRC"
-# Create an alias for logging into Debian from Termux
+
+# Alias in Termux for Debian login
 BASHRC_FILE="$HOME/.bashrc"
 echo "" >> $BASHRC_FILE
 echo "# --- Debian Alias ---" >> $BASHRC_FILE
 echo "alias debian='proot-distro login debian --user $NEW_USER --shared-tmp'" >> $BASHRC_FILE
 echo "Alias 'debian' has been added to your Termux .bashrc!"
 
-
-# --- [6/6] Final Instructions ---
+# --- Final Instructions ---
 echo ""
 echo -e "${C_GREEN}=================================================${C_RESET}"
 echo -e "${C_GREEN}          SETUP COMPLETE!                        ${C_RESET}"
@@ -164,13 +166,12 @@ echo ""
 echo -e "${C_YELLOW}You will be prompted to select a resolution and create a VNC password.${C_RESET}"
 echo ""
 echo "After starting, you can connect using a VNC client at:"
-echo -e "  ${C_CYAN}localhost:1${C_RESET}  (which is 127.0.0.1 on port 5901)"
+echo -e "  ${C_CYAN}localhost:1${C_RESET}  (127.0.0.1:5901)"
 echo ""
 echo "Inside Debian, you can also use:"
 echo -e "  '${C_CYAN}stopvnc${C_RESET}'   - to stop the VNC server."
 echo -e "  '${C_CYAN}exit${C_RESET}'      - to log out and return to Termux."
 echo ""
-echo -e "${C_YELLOW}IMPORTANT: Open a new Termux/Debian session or run 'source ~/.bashrc' for the aliases to work.${C_RESET}"
-echo -e "${C_CYAN}                                          by CoreLand${C_RESET}"
+echo -e "${C_YELLOW}IMPORTANT: Open a new Termux/Debian session or run 'source ~/.bashrc' for aliases to work.${C_RESET}"
+echo -e "${C_CYAN}                                          by AbhirajBibhar${C_RESET}"
 echo -e "${C_GREEN}=================================================${C_RESET}"
-
